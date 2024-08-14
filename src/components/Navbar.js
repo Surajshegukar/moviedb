@@ -177,7 +177,7 @@ function Navbar() {
           placeholder="Search..."
         />
         {search && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-lg  dark:border-gray-700">
             <ul className="p-2 overflow-y-scroll scroll-smooth h-80">
               {movies.map((movie) => (
                 <li
