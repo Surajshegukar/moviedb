@@ -24,7 +24,7 @@ function HomePage() {
     isLoading ? <Loading /> :
     <div>
         <h1>{category.charAt(0).toUpperCase() + category.slice(1)} Movies</h1>
-        <div className="grid grid-cols-1 gap-4 px-4 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mx-5 grid grid-cols-1 gap-4 px-4 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {moviesList.map((movie) => (
                 <Card movie = {movie} />
             ))}

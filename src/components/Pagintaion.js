@@ -7,7 +7,7 @@ function Pagintaion(props) {
     const context = useContext(SystemContext);
     const {currentPage, handlePrev, handleNext} = context;
   return (
-    <div class="flex flex-col items-center">
+    <div class="my-5 flex flex-col items-center">
       <span class="text-sm text-gray-700 dark:text-gray-400">
         Showing Page {" "}
         <span class="font-semibold text-grey">{currentPage}</span> to{" "}
