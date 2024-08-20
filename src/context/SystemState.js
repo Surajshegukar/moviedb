@@ -4,6 +4,9 @@ import SystemContext from './SystemContext';
 const SystemState = (props)=>{
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [moviesList,setMoviesList] = useState([]);
+    const [pageInfo,setPageInfo] = useState({});
+    const [category,setCategory] = useState('popular');
 
     function handleNext(totalPage){
 
@@ -22,8 +25,28 @@ const SystemState = (props)=>{
         setCurrentPage(1);
     
     }
+    const searchMovies = async (movie_name) => {
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=ede798186f006f1f65299cfb0a242732&language=en-US&query=${movie_name}&page=1`);
+        const data = await response.json();
+        setMoviesList(data.results);
+          
+    }
+    
+    const categories = (option)=>{
+        setCategory(option);
 
-    return <SystemContext.Provider value={{currentPage,reset, handlePrev, handleNext,setCurrentPage}}>
+    }
+
+
+    const fetchMovies = async () => {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=ede798186f006f1f65299cfb0a242732&language=en-US&page=${currentPage}`);
+        const data = await response.json();
+        setMoviesList(data.results);
+        setPageInfo(data.total_pages);
+        console.log(category);
+    }
+
+    return <SystemContext.Provider value={{currentPage,category,categories,searchMovies,pageInfo,reset,fetchMovies,moviesList, handlePrev, handleNext,setCurrentPage}}>
         {props.children}
     </SystemContext.Provider>
 

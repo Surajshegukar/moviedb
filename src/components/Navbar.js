@@ -5,30 +5,30 @@ import SystemContext from '../context/SystemContext';
 
 function Navbar() {
   const { id } = useParams();
-  const [movies, setMovies] = useState([]);
-  const { reset } = React.useContext(SystemContext);
-  const [search, setSearch] = useState(false);
+  const { searchMovies,fetchMovies,categories,reset } = React.useContext(SystemContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const fetchMovies = async (movie_name) => {
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=ede798186f006f1f65299cfb0a242732&language=en-US&query=${movie_name}&page=1`);
-    const data = await response.json();
-    setMovies(data.results);
-  };
+  const [refresh,setRefresh] = useState(false);
+  
 
   const handleSearch = (e) => {
-    setSearch(true);
-    fetchMovies(e.target.value);
-    e.target.value.length === 0 ? setSearch(false) : setSearch(true);
+    
+    e.target.value.length === 0 ? fetchMovies() : searchMovies(e.target.value);;
   };
-
-  useEffect(() => {
-    setSearch(false);
-  }, [id]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleChange = (option)=>{
+    categories(option);
+    setRefresh(!refresh);
+    reset();
+  }
+
+  useEffect(() => {
+    console.log('refresh');
+    fetchMovies();
+  }, [id,refresh]);
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -69,7 +69,7 @@ function Navbar() {
               className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search..."
             />
-            {search && (
+            {/* {search && (
               <div className="absolute z-10 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
                 <ul className="p-2 overflow-y-scroll scroll-smooth h-80">
                   {movies.map((movie) => (
@@ -84,22 +84,22 @@ function Navbar() {
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
           </div>
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <Link
-                onClick={reset}
-                to="/top-rated"
+                onClick={()=>handleChange('top_rated')}
+                to="/"
                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
+              > 
                 Top Rated
               </Link>
             </li>
             <li>
               <Link
-                onClick={reset}
-                to="/upcoming"
+                onClick={()=>handleChange('upcoming')}
+                to="/"
                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Upcoming
@@ -107,7 +107,7 @@ function Navbar() {
             </li>
             <li>
               <Link
-                onClick={reset}
+                onClick={()=>handleChange('popular')}
                 to="/"
                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
@@ -131,7 +131,7 @@ function Navbar() {
           className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search..."
         />
-        {search && (
+        {/* {search && (
           <div className="absolute z-10 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <ul className="p-2 overflow-y-scroll scroll-smooth h-80">
               {movies.map((movie) => (
@@ -146,7 +146,7 @@ function Navbar() {
               ))}
             </ul>
           </div>
-        )}
+        )} */}
       </div>
     </nav>
   );
