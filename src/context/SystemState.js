@@ -10,7 +10,7 @@ const SystemState = (props) => {
   const [movieSearch,setMovieSearch] = useState("");
 
   function handleNext(totalPage) {
-    if (currentPage === totalPage) return;
+    if (currentPage === totalPage && currentPage >= totalPage) return;
     setCurrentPage((prev) => prev + 1);
   }
 
