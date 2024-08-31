@@ -28,7 +28,7 @@ function HomePage() {
           <Card movie={movie} />
         ))}
       </div>
-      {!isSearch && <Pagintaion totalPage={pageInfo} /> }
+      {<Pagintaion totalPage={pageInfo} /> }
     </div>
   );
 }

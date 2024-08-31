@@ -28,7 +28,7 @@ const SystemState = (props) => {
   }
   const searchMovies = async (movie_name) => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=ede798186f006f1f65299cfb0a242732&language=en-US&query=${movie_name}&page=1`
+      `https://api.themoviedb.org/3/search/movie?api_key=ede798186f006f1f65299cfb0a242732&language=en-US&query=${movie_name}&page=${currentPage}`
     );
     const data = await response.json();
     setMoviesList(data.results);
