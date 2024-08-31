@@ -7,10 +7,12 @@ const SystemState = (props) => {
   const [pageInfo, setPageInfo] = useState({});
   const [category, setCategory] = useState("popular");
   const [isSearch, setIsSearch] = useState(false);
-  const [movieSearch,setMovieSearch] = useState("");
+  const [movieSearch, setMovieSearch] = useState("");
 
   function handleNext(totalPage) {
-    if (currentPage === totalPage && currentPage >= totalPage) return;
+    if (currentPage >= totalPage) return;
+    if (currentPage === totalPage) return;
+
     setCurrentPage((prev) => prev + 1);
   }
 
