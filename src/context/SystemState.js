@@ -19,7 +19,7 @@ const SystemState = (props) => {
   }
 
   function handlePrev() {
-    if (currentPage === 1) return;
+    if (currentPage <= 1) return;
 
     setCurrentPage((prev) => prev - 1);
   }
