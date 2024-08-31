@@ -5,12 +5,13 @@ import SystemContext from "../context/SystemContext";
 
 function Navbar() {
   const { id } = useParams();
-  const { searchMovies, fetchMovies, handleSearching, categories, reset } =
+  const { searchMovies, fetchMovies,setMovieSearch, handleSearching, categories, reset } =
     React.useContext(SystemContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const handleSearch = (e) => {
+    setMovieSearch(e.target.value);
     e.target.value.length === 0 ? fetchMovies() : searchMovies(e.target.value);
     e.target.value.length === 0
       ? handleSearching(false)

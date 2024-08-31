@@ -10,13 +10,20 @@ function HomePage() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const context = useContext(SystemContext);
-  const { currentPage, fetchMovies, isSearch, moviesList, pageInfo, category } =
+  const { currentPage,searchMovies,movieSearch, fetchMovies, isSearch, moviesList, pageInfo, category } =
     context;
 
   useEffect(() => {
-    fetchMovies().then(() => {
-      setIsLoading(false);
-    });
+    if (isSearch) {
+      searchMovies(movieSearch).then(() => {
+        setIsLoading(false);
+      });
+    }
+    else{
+      fetchMovies().then(() => {
+        setIsLoading(false);
+      });
+    }
   }, [currentPage]);
   return isLoading ? (
     <Loading />

@@ -7,6 +7,7 @@ const SystemState = (props) => {
   const [pageInfo, setPageInfo] = useState({});
   const [category, setCategory] = useState("popular");
   const [isSearch, setIsSearch] = useState(false);
+  const [movieSearch,setMovieSearch] = useState("");
 
   function handleNext(totalPage) {
     if (currentPage === totalPage) return;
@@ -32,6 +33,7 @@ const SystemState = (props) => {
     );
     const data = await response.json();
     setMoviesList(data.results);
+    setPageInfo(data.total_pages);
   };
 
   const categories = (option) => {
@@ -55,6 +57,8 @@ const SystemState = (props) => {
         category,
         categories,
         searchMovies,
+        movieSearch,
+        setMovieSearch,
         pageInfo,
         reset,
         fetchMovies,
