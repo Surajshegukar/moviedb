@@ -5,13 +5,20 @@ import SystemContext from "../context/SystemContext";
 
 function Navbar() {
   const { id } = useParams();
-  const { searchMovies, fetchMovies,setMovieSearch, handleSearching, categories, reset } =
-    React.useContext(SystemContext);
+  const {
+    searchMovies,
+    fetchMovies,
+    setMovieSearch,
+    handleSearching,
+    categories,
+    reset,
+  } = React.useContext(SystemContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const handleSearch = (e) => {
     setMovieSearch(e.target.value);
+    reset();
     e.target.value.length === 0 ? fetchMovies() : searchMovies(e.target.value);
     e.target.value.length === 0
       ? handleSearching(false)
@@ -36,7 +43,11 @@ function Navbar() {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <a
+          href="/"
+          onClick={reset}
+          className="flex items-center space-x-3 rtl:space-x-reverse"
+        >
           <img src={icon} className="h-8" alt="MovieDB Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             MovieDB
